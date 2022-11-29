@@ -18,10 +18,22 @@ function addExpense(e){
         expenses.push(expense);
         localStorage.setItem("expenses", JSON.stringify(expenses));
     }
-    document.getElementById("myForm").requestFullscreen();
+    document.getElementById("myForm").reset();
+    showExpenses();
 }
 const showExpenses = () => {
     const expenseTable = document.getElementById("expenseTable");
     expenseTable.innerHTML = "";
+    for(let i=0;i<expenses.length;i++){
+        expenseTable.innerHTML += `
+        <tr> 
+            <td> ${expenses[i].expenseAmount} </td>
+            <td> ${expenses[i].expenseDescription} </td>
+            <td> ${expenses[i].expenseCategory} </td>
+            <td><button onclick="editExpense(${expenses[i].id})" class="editExpense"> edit</button></td>
+            <td><button onclick="deleteExpense(${expenses[i].id})" class="deleteExpense"> &#10005;</button></td>
+        </tr>
+        `
+    }
 }
 
